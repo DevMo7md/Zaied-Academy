@@ -21,7 +21,7 @@ from django.views.decorators.http import require_POST
 import os
 from django.core.files.base import ContentFile
 import subprocess
-
+import uuid
 
 
 # Create your views here.
@@ -137,7 +137,7 @@ def login_page(request):
         password = request.POST['password']
 
         # تحقق إذا كان المدخل بريد إلكتروني أو اسم مستخدم
-        users = User.objects.filter(Q(username=username) | Q(email=username))
+        users = CustomUser.objects.filter(Q(username=username) | Q(email=username))
         if users.exists():
             if users.count() == 1:
                 # الحصول على المستخدم الفردي
@@ -154,9 +154,21 @@ def login_page(request):
 
         user = authenticate(request, username=user.username, password=password)
         if user is not None:
-            login(request, user)
-            messages.success(request, "تم تسجيل الدخول بنجاح")
-            return redirect('home')
+            if user.session_token:
+                messages.error(request, 'هذا الحساب مسجل الدخول بالفعل على جهاز آخر.')
+                return redirect('login')  # أو أعد التوجيه إلى صفحة أخرى حسب الحاجة
+            else:
+                # إنشاء رمز جلسة جديد
+                session_token = uuid.uuid4().hex
+                user.session_token = session_token
+                user.save()
+                
+                # تسجيل دخول المستخدم
+                login(request, user)
+                request.session['session_token'] = session_token
+                messages.success(request, "تم تسجيل الدخول بنجاح")
+                return redirect('home')  # أعد التوجيه إلى الصفحة الرئيسية بعد تسجيل الدخول بنجاح
+
         else:
             messages.warning(request, "كلمة المرور خاطئة , يرجى كتابتها صحيحة .")
             return redirect('login')
@@ -184,11 +196,11 @@ def register(request):
         password2 = request.POST['password2']
 
         if password1 == password2:
-            if User.objects.filter(Q(username=username) | Q(email=email)).exists():
+            if CustomUser.objects.filter(Q(username=username) | Q(email=email)).exists():
                 messages.error(request, 'عذراً اسم المستخدم او البريد الالكتروتي مستخدم من قبل')
             
             else:
-                user = User.objects.create_user(username=username, email=email, password=password1, first_name=first_name, last_name=last_name)
+                user = CustomUser.objects.create_user(username=username, email=email, password=password1, first_name=first_name, last_name=last_name)
                 user.is_active = False  
                 user.save()
                 
@@ -252,7 +264,7 @@ def verify_email(request):
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
-        user = User.objects.filter(email=email).first()
+        user = CustomUser.objects.filter(email=email).first()
         if user:
             # Generate a verification code
             verification_code = get_random_string(length=32)
@@ -295,9 +307,12 @@ def reset_password(request, code):
 
 
 def logout_user (request):
+    user = request.user
+    user.session_token = None
+    user.save()
     logout(request)
-    messages.success(request, 'تم تسجيل الخروج بنجاح')
-    return redirect('/')  # Redirect to main page after logout
+    return redirect('/')
+
 
 
 def dashboard(request):

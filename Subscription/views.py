@@ -27,7 +27,7 @@ def subscribe(request):
         integration_id = 4602060  # Your Payment Integration id to spicify what payment is it like (cards, or mobile wallet, etc..)
         amount = 120  # amount that you want the user to pay
         currency = "EGP"  # currency USD or EGP , etc..
-        user_name = User.objects.get(id=request.user.id)
+        user_name = CustomUser.objects.get(id=request.user.id)
         student = Student.objects.get(user__id=request.user.id)
         paymentKey, orderId = paymob_manager.getPaymentKey(
                 amount=amount, 

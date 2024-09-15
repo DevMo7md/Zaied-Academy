@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from LP_app.models import *
+from django.conf import settings
+
 # Create your models here.
 
 class Question(models.Model):
@@ -22,7 +24,7 @@ class Choice(models.Model):
         return f"{self.question.text} - {self.text}"
 
 class UserAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # ربط المستخدم
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # ربط المستخدم
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
 
