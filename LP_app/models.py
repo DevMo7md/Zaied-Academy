@@ -1,12 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
 import uuid
+from django.conf import settings
+
 # Create your models here.
 # models.py
 
+class CustomUser(AbstractUser):
+    session_token = models.CharField(max_length=100, blank=True, null=True)
+
+
 class EmailVerification(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     code = models.CharField(max_length=32)
     created_at = models.DateTimeField(auto_now_add=True)
     is_used = models.BooleanField(default=False, null=True, blank=True)  # لتتبع ما إذا تم استخدام الرمز أم لا
@@ -25,7 +31,7 @@ class Category(models.Model):
         return self.name
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255, null=True, blank=True)
     second_name = models.CharField(max_length=255, null=True, blank=True)
     third_name = models.CharField(max_length=255, null=True, blank=True)
