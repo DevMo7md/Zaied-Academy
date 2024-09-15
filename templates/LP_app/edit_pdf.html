@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .form-label {
+        display: inline-block;
+        width: 100px; /* يمكنك ضبط العرض حسب الحاجة */
+        text-align: right;
+        margin-right: 10px; /* مسافة بين التسمية وحقل الإدخال */
+    }
+    .form-control {
+        display: inline-block;
+        width: calc(100% - 120px); /* تعيين العرض بناءً على عرض التسمية */
+    }
+</style>
+<h2 class="d-flex justify-content-center" style="color: #911393;">تعديل PDF</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">اسم ال PDF :</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ pdf.name }}">
+    </div>
+    <div class="form-group">
+        <label for="category" class="form-label">الصف :</label>
+        <select class="form-control" id="grade" name="grade" required>
+            {% for grade in grades %}
+            <option value="{{ grade.id }}"  {% if grade.id == pdf.grade.id %}selected{% endif %} >{{ grade.grade }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="thumnale_image">صورة الغلاف :</label>
+        <input type="file" class="form-control" id="thumnale_image" name="thumnale_image"><br>
+        <small>إذا كنت لا تريد تغيير الصورة، اترك هذا الحقل فارغًا.</small>
+    </div>
+    <div class="form-group">
+        <label for="bdf">ملف pdf :</label>
+        <input type="file" class="form-control" id="bdf" name="bdf"><br>
+        <small>إذا كنت لا تريد وضع الملف, اترك هذا الحقل فارغًا.</small>
+    </div>
+    <button type="submit" class="btn" style="background-color: rgb(202, 43, 226); font-size: 1em; font-family: 'Almarai', sans-serif; color:aliceblue; border-radius: 5px;">حفظ التعديلات</button>
+</form>
+{% endblock %}

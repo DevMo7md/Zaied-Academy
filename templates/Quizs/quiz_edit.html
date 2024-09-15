@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .form-label {
+        display: inline-block;
+        width: 100px; /* يمكنك ضبط العرض حسب الحاجة */
+        text-align: right;
+        margin-right: 10px; /* مسافة بين التسمية وحقل الإدخال */
+    }
+    .form-control {
+        display: inline-block;
+        width: calc(100% - 120px); /* تعيين العرض بناءً على عرض التسمية */
+    }
+</style>
+<h2 class="d-flex justify-content-center" style="color: #911393;">تعديل الامتحان</h2>
+<br>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title" class="form-label">السؤال :</label>
+        <input type="text" class="form-control" id="title" name="question" placeholder="اضف سؤال" value="{{questions.text}}" required>
+    </div>
+    <div class="form-group">
+        <label for="category" class="form-label">التصنيف :</label>
+        <p class="form-control" style="font-size: larger;">{{cat.name}}</p>
+    </div>
+    <div class="form-group">
+        <label for="category" class="form-label">الحصة :</label>
+        <select class="form-control" id="grade" name="lesson" required>
+            {% for lesson in lessons %}
+            <option value="{{ lesson.id }}" {% if lesson.id == questions.lesson.id %}selected{% endif %}>{{ lesson.title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category" class="form-label">الصف :</label>
+        <select class="form-control" id="grade" name="grade" required>
+            {% for grade in grades %}
+            <option value="{{ grade.id }}" {% if grade.id == questions.grade.id %}selected{% endif %}>{{ grade.grade }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn" style="background-color: rgb(202, 43, 226); font-size: 1em; font-family: 'Almarai', sans-serif; color:aliceblue; border-radius: 5px;" name="edited-btn">حفظ التعديلات</button>
+</form>
+    <hr>
+    <h2 class="d-flex justify-content-center" style="color: #911393;">تعديل الاجابات</h2>
+    <br>
+    {% for answer in quiz_answers %}
+    <div class="form-group">
+        {% if answer.is_correct %}
+        <label for="category" class="form-label">الاجابة : &nbsp; <i class="fa-solid fa-check"></i></label>
+        {% else %}
+        <label for="category" class="form-label">الاجابة :</label>
+        {% endif %}
+        <a href="{% url 'edit_choice' answer.id %}"><h5 class="form-control">{{answer.text}}</h5></a>
+    </div>
+    {% endfor %}<br><br>
+{% endblock %}

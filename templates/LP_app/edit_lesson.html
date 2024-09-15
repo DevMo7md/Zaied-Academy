@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .form-label {
+        display: inline-block;
+        width: 100px; /* يمكنك ضبط العرض حسب الحاجة */
+        text-align: right;
+        margin-right: 10px; /* مسافة بين التسمية وحقل الإدخال */
+    }
+    .form-control {
+        display: inline-block;
+        width: calc(100% - 120px); /* تعيين العرض بناءً على عرض التسمية */
+    }
+</style>
+<h2 class="d-flex justify-content-center" style="color: #911393;">تعديل الفيديو</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">عنوان الفيديو :</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ lesson.title }}">
+    </div>
+    <div class="form-group">
+        <label for="lesson">الفيديو :</label>
+        <input type="file" class="form-control" id="lesson" name="lesson"><br>
+        <small>إذا كنت لا تريد تغيير الفيديو، اترك هذا الحقل فارغًا.</small>
+    </div>
+    <div class="form-group">
+        <label for="category">التصنيف :</label>
+        <select class="form-control" id="category" name="category">
+            {% for category in categories %}
+            <option value="{{ category.id }}" {% if category.id == lesson.category.id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category" class="form-label">الصف :</label>
+        <select class="form-control" id="grade" name="grade" required>
+            {% for grade in grades %}
+            <option value="{{ grade.id }}"  {% if grade.id == lesson.grade.id %}selected{% endif %} >{{ grade.grade }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="thumnale_image">صورة الغلاف :</label>
+        <input type="file" class="form-control" id="thumnale_image" name="thumnale_image"><br>
+        <small>إذا كنت لا تريد تغيير الصورة، اترك هذا الحقل فارغًا.</small>
+    </div>
+    <div class="form-group">
+        <label for="bdf">ملف pdf :</label>
+        <input type="file" class="form-control" id="bdf" name="bdf"><br>
+        <small>إذا كنت لا تريد وضع الملف, اترك هذا الحقل فارغًا.</small>
+    </div>
+    <div class="form-group">
+        <label for="discrebtion">وصف الفيديو :</label>
+        <textarea class="form-control" id="discrebtion" name="discrebtion">{{ lesson.discrebtion }}</textarea>
+    </div>
+    <button type="submit" class="btn" style="background-color: rgb(202, 43, 226); font-size: 1em; font-family: 'Almarai', sans-serif; color:aliceblue; border-radius: 5px;">حفظ التعديلات</button>
+    <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+    <span id="uploadStatus"></span>
+</form>
+<script>
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // منع الإرسال الافتراضي للنموذج
+
+    const formData = new FormData(this);
+    const progressBar = document.getElementById('progressBar');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.upload.addEventListener('progress', function(e) {
+        if (e.lengthComputable) {
+            const percentComplete = (e.loaded / e.total) * 100;
+            progressBar.value = percentComplete;
+            uploadStatus.innerText = `تم رفع ${Math.round(percentComplete)}%`;
+        }
+    });
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.message) {
+                uploadStatus.innerText = response.message;
+            } else {
+                uploadStatus.innerText = 'حدث خطأ أثناء الرفع.';
+            }
+        } else {
+            uploadStatus.innerText = 'حدث خطأ في الاتصال بالخادم.';
+        }
+    };
+
+    xhr.onerror = function() {
+        uploadStatus.innerText = 'فشل الاتصال بالخادم.';
+    };
+
+    xhr.open('POST', '{% url "teacher_video" %}', true);
+    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+    xhr.send(formData);
+
+    uploadStatus.innerText = 'جارٍ الرفع...';
+});
+
+</script>
+{% endblock %}

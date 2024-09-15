@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block dash %}
+{% load static %}
+<style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination .step-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pagination .step-links a,
+        .pagination .step-links span {
+            display: inline-block;
+            text-align: center;
+            height: 30px;
+            width: 100px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+        }
+        .pagination .step-links .current {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            
+        }
+        .pagination .step-links a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+            .navbar {
+        background-color: rgba(58, 58, 58, 0.422) !important; /* خلفية شفافة */
+        position: relative;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: "Almarai", sans-serif;
+        }
+    </style>
+
+<div class="main-content">
+    {% include 'parts/sidepar.html' %}
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" dir="rtl">
+                <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Zaied Academy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'landing' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">تسجيل خروج</a>
+                    </li>
+                    {% else %}
+                    {% endif %}
+                </ul>
+                <a id="theme-toggle"><i class="fas fa-adjust" onclick="toggleTheme()" style="color: white;"></i></a>
+            </div>
+        </div>
+    </nav>
+    <br>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" dir="rtl">
+    {{message}}
+    <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        style="font-family: 'Almarai', sans-serif; font-size: 1em;"
+    ></button>
+    </div>
+    {% endfor %}{% endif %}
+    <div class="row justify-content-center">
+        <div class="col-lg-12" id="searchbar">
+            <form class="d-flex" role="search" method="GET" action="{% url 'student_teacher' %}">
+                <input class="form-control me-2" name="search-bar" type="search" placeholder="Search" aria-label="Search" id="search" style="box-shadow:hsla(306, 60%, 68%, 0.666) 0 0 16px;">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                    </button>
+                <button class="btn btn-outline-success" type="submit" style="display: none;">Search</button>
+            </form>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="table-responsive" style="padding: 20px;">
+        <table class="table table-striped table-hover main-content">
+            <thead class="table-dark">
+                <tr>
+                <th scope="col">معرف الطالب</th>
+                <th scope="col">اسم الطالب</th>
+                <th scope="col">رقم الطالب</th>
+                <th scope="col">رقم ولي امرالطالب (أب)</th>
+                <th scope="col">رقم ولي امر الطالب (أم)</th>
+                <th scope="col">البريد الإلكتروني</th>
+                <th scope="col">الصف</th>
+                <th scope="col">المحافظة</th>
+                <th scope="col">المدرسة</th>
+                <th scope="col">الحالة</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>            
+                <td><a href="{% url 'profile' student.user.id %}" style="color: brown;">{{student.user.id}}</a></td>
+                <td>{{student.first_name}} {{student.last_name}}</td>
+                <td>{{student.phone_num}}</td>
+                <td>{{student.dad_num}}</td>
+                <td>{{student.mom_num}}</td>
+                <td>{{student.user.email}}</td>
+                <td>{{student.alsaf}}</td>
+                <td>{{student.government}}</td>
+                <td>{{student.school}}</td>
+                {% if student.subscription_active %}
+                <td style="color: green;">مشترك</td>
+                {% else %}
+                <td style="color: red;">غير مشترك</td>
+                {% endif %}
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</div>
+{% endblock %}

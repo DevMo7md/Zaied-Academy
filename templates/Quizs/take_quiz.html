@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    {% if questions %}
+    <form method="POST" style="padding: 20px;">
+        {% csrf_token %}
+        {% for question in questions %}
+            <h4>{{ question.text }}</h4>
+            {% for choice in question.choices.all %}
+                <input type="radio" name="{{ question.id }}" value="{{ choice.id }}">
+                {{ choice.text }}<br>
+            {% endfor %}
+            <hr>
+        {% endfor %}
+        <button type="submit" class="btn btn-success" style="margin: 20px;">Submit Quiz</button>
+    </form>
+    {% else %}
+        <i class="fa-solid fa-circle-exclamation d-flex justify-content-center" style="font-size:200px; color: #800080; font-weight:bold; padding:10px;"></i><br>
+        <h1 style="color: #800080; font-weight:bold; padding:10px;" class="d-flex justify-content-center" >لا يوجد امتحانات في هذا الفرع  &nbsp;&nbsp;</h1><br>
+    {% endif %}
+</div>    
+{%endblock%}

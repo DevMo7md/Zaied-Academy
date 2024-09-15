@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% if teachers %}   
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-12" id="searchbar">
+            <form class="d-flex" role="search" method="GET" action="{% url 'teachers_home' cat.name %}">
+                <input class="form-control me-2" name="search-bar" type="search" placeholder="ابحث عن مدرسك" aria-label="Search" id="search" style="box-shadow:rgba(242, 165, 255, 0.35) 0px 5px 15px; border-color:rgb(214, 214, 214); border-radius:20px;">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                    </button>
+                <button class="btn btn-outline-success" type="submit" style="display: none;">Search</button>
+            </form>
+        </div>
+    </div>
+        <div class="spotify-playlists">
+            <h1 style="padding-bottom:30px; color:#93136f;" class="d-flex justify-content-center">المدرسين</h1><hr>
+        <div class="list row d-flex justify-content-center">
+        {% for teacher in teachers %}
+          <div class="item col-md-2">
+            <a href="{% url 'lessons' pk=teacher.id %}" class="text-decoration-none">
+            {% if teacher.photo %}
+            <img src="{{teacher.photo.url}}"/>
+            {% else %}
+            <img src="{% static 'images/empty.jpg' %}"/>
+            {% endif %}
+            </a>
+            <h4>{{teacher.first_name}} {{ teacher.last_name }}</h4>
+            <p>{{ teacher.subject.name }}</p>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+
+        {% else %}
+            <i class="fa-solid fa-circle-exclamation d-flex justify-content-center" style="font-size:200px; color: #800080; font-weight:bold; padding:10px;"></i><br>
+            <h1 style="color: #800080; font-weight:bold; padding:10px;" class="d-flex justify-content-center" >للأسف ,لا يوجد مدرسون في هذه الماده  &nbsp;&nbsp;</h1><br>
+        {% endif %}
+{% endblock %}
+

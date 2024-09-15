@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .content{
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+    .main-video{
+        grid-area: 1 / 5 / 7 / 13;
+        padding-left: 10px;
+    }
+    .other-vid{
+        grid-area: 1 / 1 / 7 / 5; 
+        padding-right: 40px;
+    }
+    .thumnale{
+        width: 100%;
+        height: auto;
+        max-height: 200px; /* اضبط الحد الأقصى للارتفاع حسب الحاجة */
+        object-fit: cover; /* لضمان أن الصورة تملأ الحاوية دون تشويه */
+        border-radius: 8px;
+    }
+    .blackout{
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 9999;
+        opacity: 1;
+    }
+
+    @media(max-width: 512px){
+        .content{
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+    .main-video{
+        grid-area: 1 / 1 / 4 / 7;
+    }
+    .other-vid{
+        grid-area: 4 / 1 / 7 / 7;
+    }
+}
+
+</style>
+<div class="content" dir="ltr">
+    <div class="main-video">
+        <h3 class="d-flex justify-content-center">{{ lesson.title }}</h3>
+        <hr>
+            {% if lesson.thumnale_image %}
+            <div class="video-container">
+                <video class="embed-responsive embed-responsive-16by video-js" data-setup="{}" oncontextmenu="return false;" controlsList="nodownload" id="myVideo" width="700" height="400" poster="{{ lesson.thumnale_image.url }}" preload="auto" controls>
+                    <source src="{{ lesson.lesson.url }}" type="video/mp4">
+                    <source src="{{ lesson.lesson.url }}" type="video/webm">
+                    <source src="{{ lesson.lesson.url }}" type="video/oog">
+                </video>
+                <div class="blackout" id="blackout"></div>
+            </div> 
+            {% else %}
+            <div class="video-container">
+                <video class="embed-responsive embed-responsive-16by video-js" oncontextmenu="return false;" controlsList="nodownload" id="myVideo" width="750" height="450" preload="auto" controls>
+                    <source src="{{ lesson.lesson.url }}" type="video/mp4">
+                    <source src="{{ lesson.lesson.url }}" type="video/webm">
+                    <source src="{{ lesson.lesson.url }}" type="video/oog">
+                </video>
+                <div class="blackout" id="blackout"></div>
+            </div>
+            {% endif %}<hr><br>
+            {% if lesson.bdf %}
+            <a href="{{lesson.bdf.url}}" download="{{lesson.bdf.name}}" class="btn" style="background-color: blueviolet;"><i class="fa-solid fa-download"></i>  pdf تنزيل الحصة</a><br><br>
+            {% endif %}
+        <p class="d-flex justify-content-start" dir="rtl">{{ lesson.discrebtion }}</p><br>
+    </div>
+    <div class="other-vid">
+        <h3 class="d-flex justify-content-center">مقترحات</h3><hr>
+        {% for les in lessons %}
+        <div class="card">
+            <a href="{% url 'video' les.id %}" class="text-decoration-none">
+            {% if les.thumnale_image %}
+                <img class="thumnale" src="{{les.thumnale_image.url}}" alt="thumnale">
+                {% else %}
+                <img class="thumnale" src="{% static 'images/lesson.jpg' %}" alt="thumnale">
+            {% endif %}
+                <h5>{{ les.title }}</h5>
+            </a>
+        </div><hr><br>
+        {% endfor %}
+    </div>
+</div>    
+<script>
+    // إظهار الشاشة السوداء عند فقدان التركيز على النافذة
+    window.addEventListener('blur', function() {
+        const blackout = document.getElementById('blackout');
+        blackout.style.display = 'block';
+    });
+
+    // إخفاء الشاشة السوداء عند استعادة التركيز
+    window.addEventListener('focus', function() {
+        const blackout = document.getElementById('blackout');
+        blackout.style.display = 'none';
+    });
+
+    // تعطيل اختصارات لوحة المفاتيح الخاصة بالتقاط الشاشة أو الطباعة
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'p')) {
+            e.preventDefault();
+        }
+    });
+
+    // تعطيل الزر الأيمن على الفيديو
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+    // التعرف على محاولة فتح أدوات المطور
+    (function() {
+        const devtools = function() {};
+        devtools.toString = function() {
+            throw new Error("تم تعطيل أدوات المطور");
+        };
+        Object.defineProperty(window, "_devtools", {
+            get: devtools
+        });
+    })();
+
+    // تعطيل الزر الأيمن على الفيديو
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+        // تعيين رابط الفيديو عبر JavaScript
+        const videoElement = document.getElementById('myVideo');
+        const videoSource = "{{ lesson.lesson.url }}"; // رابط الفيديو المشفر
+        videoElement.querySelector('source').src = videoSource;
+        videoElement.load();
+
+        // تعطيل بعض وظائف JavaScript لمنع تنزيل الفيديوهات
+        document.addEventListener('contextmenu', event => event.preventDefault()); // تعطيل الزر الأيمن
+
+        // تقييد أدوات المطور في المتصفح
+        (function() {
+            const devtools = function() {};
+            devtools.toString = function() {
+                throw new Error("تم تعطيل أدوات المطور");
+            };
+            Object.defineProperty(window, "_devtools", {
+                get: devtools
+            });
+        })();
+    seekBar.addEventListener('input', function() {
+    const time = video.duration * (seekBar.value / 100);
+    console.log('Current Time:', time);  // للتحقق من الوقت الحالي
+    video.currentTime = time;
+});
+
+    </script>
+
+{%endblock%}

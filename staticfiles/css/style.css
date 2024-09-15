@@ -1,0 +1,749 @@
+/* الأنماط العامة */
+body {
+    transition: background-color 0.3s, color 0.3s;
+    font-family: "Almarai", sans-serif;
+    padding: 10px;
+}
+
+/* الوضع الفاتح */
+body.light-theme {
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+}
+
+body.light-theme .card {
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+}
+
+
+body.light-theme .card-footer {
+    background-color: #e9ecef;
+    color: #000000;
+}
+
+body.light-theme .hero-content{
+    color: #111111;
+}
+
+/* الوضع الداكن */
+body.dark-theme {
+    background-color: #111111;
+    color: #ffffff;
+}
+body.dark-theme.hero-content h2 {
+    color:#ffffff ;
+}
+
+body.dark-theme .card {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border:#333333
+}
+
+
+body.dark-theme .card-footer {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+body.dark-theme .hero-content{
+    color: #ffffff !important;
+}
+
+body.dark-theme .card-footer small {
+    color: #ffffff !important; /* اجعل النص الصغير أبيض */
+}
+
+/* زر التبديل */
+.theme-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.theme-toggle-btn:focus {
+    outline: none;
+}
+
+
+
+/* Landing Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    text-align: center;
+}
+
+header {
+    background-color: #800080;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+.menu-button, .theme-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+}
+
+/* Hero Section Styles */
+.buttons-bg {
+    display: grid;
+    place-items: center; /* وضع المحتوى في وسط العنصر */
+    justify-content: end; /* جعل العنصر في أقصى اليمين */
+    align-content: start; /* جعل العنصر في الأعلى */
+    padding: 20px;
+    background-image: url('/static/images/chac-LP.png'); /* مسار الصورة */
+    background-size: cover; /* يجعل الصورة تغطي العنصر بالكامل */
+    background-position: top right; /* يحافظ على مركز الصورة في منتصف العنصر */
+    background-repeat: no-repeat; /* يمنع تكرار الصورة */
+    height: 70vh; /* يجعل ارتفاع العنصر يملأ الشاشة */
+    width: 70vh;
+    font-family: "Zain", sans-serif;
+}
+
+.buttons-area{
+    display: flex;
+    align-items: center; /* يركز محتوى .buttons-bg عمودياً */
+    height: 90vh; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 70%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 57%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}   
+
+
+.hero-content{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    justify-content: start; /* اجعل العناصر في أقصى اليمين */
+    align-items: end; /* اجعل العناصر في الأعلى */
+    text-align: right; /* اجعل النصوص تتماشى مع الاتجاه الصحيح */
+}
+
+
+.hero-content h1 {
+    position: relative;
+    font-size: 3em;
+    color: #911393;
+    font-family: "Alegreya Sans SC", sans-serif;
+
+}
+
+.hero-content h2 {
+    position: relative;
+    font-size: 2.3em;
+    font-family: "Almarai", sans-serif;
+}
+
+
+.dark-theme .hero-content h2 {
+    color: rgb(244, 189, 255);
+}
+
+
+.hero-content p {
+    position: relative;
+    font-size: 1.4em;
+    color: #4a086f;
+    font-family: "Almarai", sans-serif;
+}
+
+button {
+    position: relative;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 2em;
+    cursor: pointer;
+    font-family: "Almarai", sans-serif;
+}
+
+.login-button {
+    background-color: #E207FF!important;
+    color: #fff!important;
+    font-size: x-large;
+}
+
+.signup-button {
+    background-color: #500C59!important;
+    color: #fff!important;
+    font-size: x-large;
+}
+
+.order-books-button {
+    background-color: #420056!important;
+    color: #fff!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.cart-icon {
+    margin-left: 10px;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+.main-content {
+    width: 80%; /* عرض المحتوى الرئيسي 80% من عرض الشاشة */
+    padding-right: 10px;
+}
+
+.cont {
+    display: flex;
+    height: 100vh; /* لتملأ الشاشة بالكامل */
+}
+
+hr{
+    border: 1px solid #E207FF;
+    background-color: #c507ff;
+}
+/* Responsive Styles */
+
+@media (max-width: 3000px) {
+    .hero {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+        margin-left: 0;
+        bottom: 0;
+        color: #911393!important;
+        font-family: "Alegreya Sans SC", sans-serif;
+    }
+
+    .hero-content h2 {
+        font-size: 2em;
+        margin-left: 0;
+        bottom: 0;
+        font-family: "Almarai", sans-serif;
+    }
+
+    .hero-content p {
+        font-size: 1.5em;
+        margin-left: 0;
+        bottom: 0;
+        font-family: "Almarai", sans-serif;
+    }
+
+    .buttons-area{
+    display: flex;
+    align-items: center; /* يركز محتوى .buttons-bg عمودياً */
+    height: 30%; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 90%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 40%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+    display: flex;
+    flex-direction:column;
+    gap: 1px;
+
+}   
+
+    .buttons-bg {
+    height: 50vh;
+    width: 50vh;
+}
+
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        font-size: 2em;
+        margin: 10px auto;
+        top: 0;
+    }
+
+    .login-button,
+    .signup-button {
+        margin-right: 0;
+    }
+
+    .order-books-button {
+        right: 0;
+        width: 150%;
+    }
+}
+
+
+@media (max-width: 860px) {
+    .hero {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+        margin-left: 0;
+        bottom: 0;
+        color: #911393!important;
+        font-family: "Alegreya Sans SC", sans-serif;
+    }
+
+    .hero-content h2 {
+        font-size: 2em;
+        margin-left: 0;
+        bottom: 0;
+        font-family: "Almarai", sans-serif;
+    }
+
+    .hero-content p {
+        font-size: 1.5em;
+        margin-left: 0;
+        bottom: 0;
+        font-family: "Almarai", sans-serif;
+    }
+
+    .buttons-area{
+    display: flex;
+    align-items: center; /* يركز محتوى .buttons-bg عمودياً */
+    height: 30%; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 75%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 40%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+}   
+
+    .buttons-bg {
+    height: 40vh;
+    width: 40vh;
+}
+
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        font-size: 1.4em;
+        margin: 10px auto;
+        top: 0;
+    }
+
+    .login-button,
+    .signup-button {
+        margin-right: 0;
+    }
+
+    .order-books-button {
+        right: 0;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .hero {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+        margin-left: 0;
+        bottom: 0;
+        color: #911393!important;
+        font-family: "Alegreya Sans SC", sans-serif;
+    }
+
+    .hero-content h2 {
+        font-size: 2em;
+        margin-left: 0;
+        bottom: 0;
+        font-family: "Almarai", sans-serif;
+    }
+
+    .hero-content p {
+        font-size: 1.5em;
+        margin-left: 0;
+        bottom: 0;
+        font-family: "Almarai", sans-serif;
+    }
+
+    .buttons-area{
+    display: flex;
+    align-items: center; /* يركز محتوى .buttons-bg عمودياً */
+    height: 30%; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 70%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 46%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+}   
+
+
+    .buttons-bg {
+    height: 40vh;
+    width: 40vh;
+}
+
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        font-size: 1.2em;
+        margin: 10px auto;
+        top: 0;
+
+    }
+
+    .login-button,
+    .signup-button {
+        margin-right: 0;
+    }
+
+    .order-books-button {
+        right: 0;
+    }
+}
+
+@media (max-width: 540px) {
+    .hero-content h1 {
+        font-size: 2em;
+        
+    }
+
+    .hero-content h2 {
+        font-size: 1.5em;
+    }
+
+    .hero-content p {
+        font-size: 0.9em;
+    }
+
+    .buttons-area{
+    display: flex;
+    height: 30%; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 100%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 45%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+    display: flex;
+    flex-direction:column;
+    gap: 1px;
+    width: 60%;
+    height: 50%;
+
+}
+
+
+    .buttons-bg {
+    height: 40vh;
+    width: 40vh;
+}
+
+    .login-button,
+    .signup-button,
+    .order-books-button{
+        font-size: 1em;
+        padding: 8px 15px;
+        width: 60%;
+        max-width: 300px;
+    }
+    .login-button,
+    .signup-button{
+        position: relative;
+        right:35px ;    
+    }
+    .order-books-button{
+        font-size: 0.9em;
+        width: 80%;
+        max-width: 300px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2em;
+        
+    }
+
+    .hero-content h2 {
+        font-size: 1.5em;
+    }
+
+    .hero-content p {
+        font-size: 0.9em;
+    }
+
+    .buttons-area{
+    display: flex;
+    height: 30%; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 100%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 45%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+    display: flex;
+    flex-direction:column;
+    gap: 1px;
+    width: 60%;
+    height: 50%;
+
+}
+
+
+    .buttons-bg {
+    height: 40vh;
+    width: 40vh;
+}
+
+    .login-button,
+    .signup-button,
+    .order-books-button{
+        font-size: 1em;
+        padding: 8px 15px;
+        width: 80%;
+        max-width: 300px;
+    }
+    .order-books-button{
+        font-size: 0.9em;
+        width: 100%;
+        max-width: 300px;
+        position: relative;
+        right: 30px;
+    }
+
+}
+
+
+
+
+@media (max-width: 350px) {
+    .hero-content h1 {
+        font-size: 2em;
+        
+    }
+
+    .hero-content h2 {
+        font-size: 1.5em;
+    }
+
+    .hero-content p {
+        font-size: 0.9em;
+    }
+
+    .buttons-area{
+    display: flex;
+    height: 30%; /* يجعل الحاوية تأخذ كامل ارتفاع الشاشة */
+    width: 100%;
+    padding: 20px; /* إضافة حشوة */
+    grid-template-areas:"buttons"; /* منطقة الأزرار */
+    position: relative;
+    
+}
+
+.buttons{
+    position: absolute; /* تمركز مطلق */
+    top: 100%; /* يضع الحافة العلوية للـ div في منتصف الحاوية */
+    left: 45%; /* يضع الحافة اليسرى للـ div في منتصف الحاوية */
+    transform: translate(-50%, -50%); /* ينقل الـ div نفسه بمنتصفه */
+    display: flex;
+    flex-direction:column;
+    gap: 1px;
+    width: 60%;
+    height: 50%;
+
+}
+
+
+    .buttons-bg {
+    height: 40vh;
+    width: 40vh;
+}
+
+    .login-button,
+    .signup-button,
+    .order-books-button{
+        font-size: 1em;
+        padding: 8px 15px;
+        width: 80%;
+        max-width: 300px;
+    }
+
+
+    .order-books-button{
+        font-size: 0.9em;
+        width: 100%;
+        max-width: 300px;
+        position: relative;
+        right: 30px;
+    }
+
+}
+
+/*Dash board*/
+ h1,h2,h3,h4,h5,h6,p{
+        font-family: "Almarai", sans-serif;
+    }
+
+
+    .datails-cards{
+        padding: 10px;
+        display: flex;
+        gap: 7px;
+        justify-content: center;
+    }
+    .card-head{
+        font-weight: bold;
+        display: flex;
+    }
+    .card-body{
+        display: flex;
+        justify-self: start;
+    }
+    .head{
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .ehsaeat{
+        display: flex;
+        padding: 40px;
+        margin: 40px;
+    }
+    .chart {
+    margin-bottom: 30px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.stat {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 45%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.stat h3 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#lessonform{
+    padding: 20px;
+}
+#lessonform-button{
+    padding: 20px;
+}
+
+.caard{
+    box-shadow: rgba(147, 0, 172, 0.35) 0px 5px 15px;
+    padding: 10px;
+}
+.video {
+    margin-bottom: 20px; /* تباعد أسفل كل صورة */
+}
+
+.thumbnail-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* اضبط الحد الأقصى للارتفاع حسب الحاجة */
+    object-fit: cover; /* لضمان أن الصورة تملأ الحاوية دون تشويه */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnail-img:hover {
+    transform: scale(1.05); /* تكبير الصورة عند المرور عليها */
+}
+.tea-lessons{
+    padding: 20px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000; /* خلفية سوداء لتصحيح أي مشاكل في الحواف */
+    margin: 0 auto; /* توسيط العنصر */
+}
+
+/* فيديو داخل الحاوية */
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لضبط الفيديو لملاءمة الحاوية */
+}

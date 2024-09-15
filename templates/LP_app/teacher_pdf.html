@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block dash %}
+<style>
+    .form-label {
+        display: inline-block;
+        width: 100px; /* يمكنك ضبط العرض حسب الحاجة */
+        text-align: right;
+        margin-right: 10px; /* مسافة بين التسمية وحقل الإدخال */
+    }
+    .form-control {
+        display: inline-block;
+        width: calc(100% - 120px); /* تعيين العرض بناءً على عرض التسمية */
+    }
+    .navbar {
+    background-color: rgba(58, 58, 58, 0.422) !important; /* خلفية شفافة */
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Almarai", sans-serif;
+    }
+</style>
+{% include 'parts/sidepar.html' %}
+<div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" dir="rtl">
+                <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Zaied Academy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'landing' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">تسجيل خروج</a>
+                    </li>
+                    {% else %}
+                    {% endif %}
+                </ul>
+                <a id="theme-toggle"><i class="fas fa-adjust" onclick="toggleTheme()" style="color: white;"></i></a>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" dir="rtl">
+    {{message}}
+    <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        style="font-family: 'Almarai', sans-serif; font-size: 1em;"
+    ></button>
+    </div>
+    {% endfor %}{% endif %}
+    <div class="row tea-lessons">
+        <h3 class="head">ملفات ال PDF</h3>
+        <hr />
+        {% for pdf in pdfs %}
+        <div class="col-md-4 video">
+            <img src="{{pdf.image.url}}" class="thumbnail-img" />
+            <hr />
+            <h5>{{pdf.name}}</h5>
+            <p>{{ pdf.grade.grade }}</p>
+            <div>
+            <a href="{% url 'delete_pdf' pdf.id %}" class="btn btn bg-danger">
+                <i class="fas fa-trash"></i>
+            </a>
+            <a
+                href="{% url 'edit_pdf' pdf.id %}"
+                class="btn"
+                style="
+                background-color: rgb(202, 43, 226);
+                font-size: 1em;
+                font-family: 'Almarai', sans-serif;
+                color: aliceblue;
+                border-radius: 5px;
+                "
+                >تعديل</a
+            >
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row m-1 mb-3" id="lessonform-button">   
+        <a href="#pdfform" class="btn" data-toggle="collapse" style="background-color: blueviolet; font-family: 'Almarai', sans-serif; font-size:large;"> إضافه PDF &nbsp;&nbsp;<i class="fa-solid fa-file-pdf"></i></a>
+    </div>
+    <div class="collapse" id="pdfform">  
+        <form method="POST" action="{% url 'teacher_pdf'%}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title" class="form-label">اسم PDF :</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="عنوان الفيديو" required>
+            </div>
+            <div class="form-group">
+                <label for="category" class="form-label">الصف :</label>
+                <select class="form-control" id="grade" name="grade" required>
+                    {% for grade in grades %}
+                    <option value="{{ grade.id }}">{{ grade.grade }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="thumnale_image" class="form-label">صورة الغلاف :</label>
+                <input type="file" class="form-control" id="thumnale_image" name="thumnale_image" required>
+            </div>
+            <div class="form-group">
+                    <label for="bdf" class="form-label">ملف pdf :</label>
+                    <input type="file" class="form-control" id="bdf" name="pdf">
+            </div>
+            <button type="submit" style="background-color: blueviolet; font-size: 1em; font-family: 'Almarai', sans-serif; color:aliceblue; border-radius: 5px;" >نشر</button>
+        </form>
+    </div> 
+</div>
+{% endblock %}

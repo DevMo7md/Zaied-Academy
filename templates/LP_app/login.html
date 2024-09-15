@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block login %}
+{% load static %}
+<link
+        rel="stylesheet"
+        href="{% static 'css/login.css' %}"
+        />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Almarai:wght@300;400;700;800&family=Zain:wght@200;300;400;700;800;900&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">        
+<body>
+  {% if messages %} {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" dir="rtl" style="z-index: 999999;">
+        {{message}}
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            style="font-family: 'Almarai', sans-serif; font-size: 1em;"
+        ></button>
+        </div>
+        {% endfor %}{% endif %}
+  <div class="background"></div>
+  <a class="btn" style="background-color:rgb(145, 106, 182); color:rgb(0, 0, 0);  position:absolute; left:0; top:0; margin:20px; font-family:'Alegreya',sans-serif;z-index:9999;" href="{% url 'landing' %}"><i class="fa-solid fa-arrow-left"></i></a>
+  <div class="card" style="margin-top: 60px;">
+    <img class="logo" src="{% static 'images/zaied-logo.png' %}">
+    <h3>Welcome back!</h3>
+
+    <form class="form" dir="ltr" method="POST">
+      {% csrf_token %}
+      <input type="text" placeholder="Email or Username" name="username">
+      <input type="password" placeholder="Password" name="password">
+      <button>log in</button>
+    </form>
+
+    <footer>
+      اذا لم يكن لديك حساب بالفعل 
+      <a href="{% url 'register' %}">أنشئ حساب</a>
+      <hr>
+      <a href="{% url 'forgot_password' %}">هل نسيت كلمة المرور؟</a>
+    </footer>
+  </div>
+</body>
+{% endblock login %}

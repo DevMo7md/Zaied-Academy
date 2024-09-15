@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="card text-center" style="display: block; width: 100%;">
+    <div class="card-header" style="display: block;">
+        <h3>زايد أكاديمي</h3>
+    </div>
+    <div class="card-body" style="display: block;">
+        <h1 class="card-title">إشترك الآن</h1><br>
+        <p class="card-text">للمتابعة للحصص و الفيديوهات رجاء الإشتراك اولا .</p>
+        <img src="{% static 'images/Learning-cuate.png' %}" alt="" style="width: 230px;">
+        <h4 class="card-text">120.00 EGP</h4>
+    </div>
+    <div class="card-footer text-muted" style="display: block;">
+        <button type="submit" class="btn btn-primary" style="font-family: 'Almarai', sans-serif;">اشترك الآن</button>
+    </div>
+</div>
+
+</form>
+
+{% endblock %}

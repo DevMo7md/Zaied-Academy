@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="row">
+    <div class="card caard col-md-12 " style="padding: 50px; color:#800080;">
+        <h3 class="card-title d-flex justify-content-center">حذف الفيديو</h3><hr>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row">
+          <p class="p-3 d-flex justify-content-center">هل تريد حقاً حذف الحصة ؟</p>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="d-flex justify-content-center" style="padding: 20px;">
+          <button type="submit" class="btn btn-danger" style="margin: 10px;">حذف</button>
+          <a
+            href="{% url 'dashboard' %}"
+            type="button"
+            class="btn btn-success"
+            style="margin: 10px;"
+            >تراجع</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endblock %}
+</div>

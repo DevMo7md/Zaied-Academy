@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block login %}
+{% load static %}
+<link
+        rel="stylesheet"
+        href="{% static 'css/login.css' %}"
+        />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Almarai:wght@300;400;700;800&family=Zain:wght@200;300;400;700;800;900&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<body>
+  {% if messages %} {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" dir="rtl" style="z-index: 999999;">
+        {{message}}
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            style="font-family: 'Almarai', sans-serif; font-size: 1em;"
+        ></button>
+        </div>
+        {% endfor %}{% endif %}
+  <div class="background"></div>
+  <a class="btn" style="background-color:rgb(145, 106, 182); color:rgb(0, 0, 0);  position:absolute; left:0; top:0; margin:20px; font-family:'Alegreya',sans-serif;z-index:9999;" href="{% url 'landing' %}"><i class="fa-solid fa-arrow-left"></i></a>
+  <div class="card">
+    <img class="logo" src="{% static 'images/zaied-logo.png' %}">
+    <h3> !أهلا بيك في منصتنا</h3>
+    <h4 style='color: rgb(102, 0, 107); font-family: "Zain",sans-serif;'>أنشئ حسابك من هنا</h4>
+
+    <form class="form" dir="rtl" method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+      <input type="text" placeholder="أسم المستخدم" name="username">
+      <input type="email" placeholder="البريد الالكتروني" name="email">
+      <input type="text" placeholder="الاسم الاول" name="first_name">
+      <input type="text" placeholder="الاسم الثاني" name="second_name">
+      <input type="text" placeholder="الاسم الثالث" name="third_name">
+      <input type="text" placeholder="الاسم الأخير" name="last_name">
+      <input dir="rtl"  type="tel" placeholder="رقم تيليفونك" name="phone_num">
+      <input dir="rtl"  type="tel" placeholder="رقم تيليفون الأب" name="dad_num">
+      <input dir="rtl"  type="tel" placeholder="رقم تيليفون الأم" name="mom_num">
+      <input type="text" placeholder="أسم المدرسة" name="school">
+      <input type="text" placeholder="وظيفة الأب" name="dad_job">
+      <select class="form-select" aria-label="Default select example" name="government">
+          <option selected>أختار محافظتك</option>
+          <option value="القاهرة">القاهرة</option>
+          <option value="الإسكندرية">الإسكندرية</option>
+          <option value="الجيزة">الجيزة</option>
+          <option value="الدقهلية">الدقهلية</option>
+          <option value="الشرقية">الشرقية</option>
+          <option value="الغربية">الغربية</option>
+          <option value="المنوفية">المنوفية</option>
+          <option value="القليوبية">القليوبية</option>
+          <option value="كفر الشيخ">كفر الشيخ</option>
+          <option value="البحيرة">البحيرة</option>
+          <option value="دمياط">دمياط</option>
+          <option value="بورسعيد">بورسعيد</option>
+          <option value="الإسماعيلية">الإسماعيلية</option>
+          <option value="السويس">السويس</option>
+          <option value="شمال سيناء">شمال سيناء</option>
+          <option value="جنوب سيناء">جنوب سيناء</option>
+          <option value="البحر الأحمر">البحر الأحمر</option>
+          <option value="مطروح">مطروح</option>
+          <option value="الوادي الجديد">الوادي الجديد</option>
+          <option value="الفيوم">الفيوم</option>
+          <option value="بني سويف">بني سويف</option>
+          <option value="المنيا">المنيا</option>
+          <option value="أسيوط">أسيوط</option>
+          <option value="قنا">قنا</option>
+          <option value="سوهاج">سوهاج</option>
+          <option value="الأقصر">الأقصر</option>
+          <option value="أسوان">أسوان</option>
+      </select>
+      <select class="form-select" aria-label="Default select example" name="alsaf">
+          {% for gr in grade %}
+          <option value="{{gr.id}}" style="color: black;">{{gr.grade}}</option>
+          {% endfor %}
+      </select>
+      
+      <input type="password" placeholder="كلمة المرور" name="password1">
+      <input type="password" placeholder="تأكيد كلمة المرور" name="password2">
+      <button type="submit">أنشئ حسابك</button>
+    </form>
+
+    <footer>
+        اذا لديك حسابا بالفعل 
+      <a href="{% url 'login' %}">سجل دخول</a>
+      <hr>
+      
+    </footer>
+  </div>
+</body>
+{% endblock login %}

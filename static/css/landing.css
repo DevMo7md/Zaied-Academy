@@ -1,0 +1,587 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+section {
+    height: 100vh; /* يملأ كامل ارتفاع الشاشة */
+    width: 100vw; /* يملأ كامل عرض الشاشة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+.section1 {
+    position: relative; /* للسماح للعناصر الزائفة بالتمركز بشكل صحيح */
+    background-image: url('/static/images/student.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Zain", sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    box-shadow: #5a426177 0px -300px 36px -28px inset;
+    z-index: 1;
+}
+
+
+.section1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.592); /* استخدم rgba لضبط اللون والشفافية */
+    z-index: 1; /* تأكد من أن التراكب يظهر فوق الخلفية */
+}
+
+.section1 * {
+    position: relative;
+    z-index: 2; /* تأكد من أن المحتوى يظهر فوق التراكب */
+}
+
+
+.hero-content{
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    padding: 30px;
+}
+
+
+.hero-content h1 {
+    position: relative;
+    font-size: 2em;
+    color: #911393;
+    font-family: "Alegreya Sans SC", sans-serif;
+
+}
+
+.hero-content h2 {
+    position: relative;
+    font-size: 1.3em;
+    font-family: "Almarai", sans-serif;
+}
+
+
+.dark-theme .hero-content h2 {
+    color: rgb(244, 189, 255);
+}
+
+
+.hero-content p {
+    position: relative;
+    font-size: 0.4em;
+    color: #c09fd3;
+    font-family: "Almarai", sans-serif;
+}
+
+button {
+
+    font-family: "Almarai", sans-serif;
+}
+
+.login-button,
+.signup-button,
+.order-books-button {
+    background-color: #E207FF;
+    color: #fff;
+    font-size: x-large;
+    margin: 3px;
+    width: 100%; /* Full width on smaller screens */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Different background colors for specific buttons */
+.signup-button {
+    background-color: #500C59;
+}
+
+.order-books-button {
+    background-color: #420056;
+}
+
+.buttons {
+    grid-column: 1/2;
+    grid-row: 2;
+    padding: 20px;
+    display: grid;
+    gap: 20px;
+}
+.login-button:hover{
+    transform: scale(1.05);
+    background-color: #E207FF;
+
+}
+    .signup-button:hover{
+    transform: scale(1.05);
+    background-color: #500C59;
+    color: #911393;
+}
+    .order-books-button:hover{
+    transform: scale(1.05);
+    background-color: #420056;
+    color: #E207FF;
+}
+
+
+
+.section2{
+    background-color: #280132;
+    position: relative; /* للسماح للعناصر الزائفة بالتمركز بشكل صحيح */
+    font-family: "Zain", sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    z-index: 1;
+}
+.box{
+    box-shadow:hsl(0, 0%, 27%) 0 0 16px;
+	border-radius: 5px;
+    width: 1400px;
+    height: 500px;
+	padding: 10px;
+    grid-column: 2/4;
+    background-color: #E207FF;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+.box #student-bro{
+    grid-column: 1/2;
+    grid-row: 1/5;
+    width:400px
+}
+.box #learning-bro{
+    grid-column: 5;
+    grid-row: 1;
+    width:200px
+}
+.box .head-card{
+    grid-column:3/5 ;
+    grid-row: 2;
+    font-size: 50px;
+}
+.box #join{
+    grid-column:3/5 ;
+    grid-row: 3;
+    background-color: #b59dd1;
+    font-size: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+.section3{
+    background-color: #340141;
+    position: relative; /* للسماح للعناصر الزائفة بالتمركز بشكل صحيح */
+    font-family: "Zain", sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    z-index: 1;
+}
+.box2{
+    box-shadow:hsl(0, 0%, 27%) 0 0 16px;
+	border-radius: 5px;
+    width: 1400px;
+    height: 500px;
+	padding: 10px;
+    grid-column: 2/4;
+    background-color: #ff07d2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+.box2 #student-bro{
+    grid-column: 1/2;
+    grid-row: 1/5;
+    width:400px
+}
+
+.box2 .head-card{
+    grid-column:3/6 ;
+    grid-row: 2;
+    font-size: 50px;
+}
+.box2 #join{
+    grid-column:3/6 ;
+    grid-row: 3;
+    background-color: #da90c6;
+    font-size: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+.box2 .links{
+    grid-row: 3;
+    grid-column: 4/6;
+}
+.box2 #social{
+    width:60px;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 1325px) {
+    .box {
+        width: 1200px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box #student-bro{
+        grid-column: 1/2;
+        grid-row: 1/5;
+        width:400px
+
+    }
+    .box #learning-bro {
+        grid-column: 5;
+        grid-row: 1;
+        width:200px
+    }
+
+    .box .head-card {
+        grid-column: 3/5;
+        grid-row: 2;
+        font-size: 2.5rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box #join {
+        grid-column: 3/5;
+        font-size: 1.7rem;
+    }
+    .box2 {
+        width: 1200px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box2 #student-bro{
+        grid-column: 1/2;
+        grid-row: 1/5;
+        width:400px
+
+    }
+    .box2 #learning-bro {
+        grid-column: 5;
+        grid-row: 1;
+        width:200px
+    }
+
+    .box2 .head-card {
+        grid-column: 3/5;
+        grid-row: 2;
+        font-size: 2.5rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box2 .links {
+        grid-column: 3/5;
+        grid-row: 3;
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 1025px) {
+    .box {
+        width: 700px;
+        height: 500px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box #student-bro{
+        grid-column: 2;
+        grid-row: 1;
+        width: 280px;
+        justify-self: center;
+    }
+    .box #learning-bro {
+        display: none;
+    }
+
+    .box .head-card {
+        grid-column: 1/5;
+        grid-row: 2;
+        font-size: 2.5rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box #join {
+        grid-column: 2;
+        grid-row: 4;
+        font-size: 1.2rem;
+        width: 200px;
+        height: fit-content;
+        justify-self: center;
+    }
+    .box2 {
+        width: 700px;
+        height: 500px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box2 #student-bro{
+        grid-column: 2;
+        grid-row: 1;
+        width: 150px;
+        justify-self: center;
+    }
+    .box2 #learning-bro {
+        display: none;
+    }
+
+    .box2 .head-card {
+        grid-column: 1/5;
+        grid-row: 2;
+        font-size: 2.5rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box2 .links {
+        justify-self: center;
+        grid-row: 3;
+        grid-column: 1/5;
+        margin-right: 70px;
+    }
+    
+}
+
+@media (max-width: 541px) {
+    .box {
+        width: 450px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box #student-bro{
+        grid-column: 2;
+        grid-row: 1/2;
+        width: 250px;
+        justify-self: center;
+    }
+    .box #learning-bro {
+        display: none;
+    }
+
+    .box .head-card {
+        grid-column: 2;
+        grid-row: 2;
+        font-size: 2.5rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box #join {
+        grid-column: 2;
+        grid-row: 3;
+        font-size: 1.7rem;
+        width: 200px;
+        height: fit-content;
+    }
+    box2 {
+        width: 300px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box2 #student-bro{
+        grid-column: 2;
+        grid-row: 1/2;
+        width: 200px;
+        justify-self: center;
+    }
+    .box2 #learning-bro {
+        display: none;
+    }
+
+    .box2 .head-card {
+        grid-column: 2;
+        grid-row: 2;
+        font-size:2rem;
+        justify-self: center;
+        width: auto;
+    }
+
+    .box2 .links {
+        gap: -10px;
+        grid-row: 3;
+        justify-content: center;
+        grid-column: 1/4;
+    }
+
+}
+
+@media (max-width: 432px) {
+    .box {
+        width: 300px;
+        height: 550px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box #student-bro{
+        grid-column: 2;
+        grid-row: 1/3;
+        width: 220px;
+        justify-self: center;
+    }
+    .box #learning-bro {
+        grid-column: 2;
+        grid-row: 5;
+        width: 120px;
+        justify-self: center;
+    }
+
+    .box .head-card {
+        grid-column: 2;
+        grid-row: 3;
+        font-size: 2.5rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box #join {
+        grid-column: 2;
+        grid-row: 4;
+        font-size: 1.4rem;
+        width: 150px;
+        height: fit-content;
+        justify-self: center;
+    }
+    .box2 {
+        width: 300px;
+        height: 550px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+
+    .box2 #student-bro{
+        grid-column: 3;
+        grid-row: 1/3;
+        width: 180px;
+        justify-self: center;
+    }
+
+
+    .box2 .head-card {
+        grid-column: 1/5;
+        grid-row: 3;
+        font-size: 2rem;
+        text-align: center;
+        width: auto;
+    }
+
+    .box2 .links {
+        grid-column: 1/5;
+        grid-row: 4;
+        justify-items: center;
+        margin-left: 60px;
+    }
+    .box2 #social{
+        width: 40px;
+    }
+}
+
+/* Responsive styling */
+@media (min-width: 2560px) {
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        width: auto; /* Auto width for larger screens */
+        font-size: 50px; /* Smaller font size on larger screens */
+    }
+
+    .buttons .d-grid.gap-2 {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .hero-content h1 {
+    position: relative;
+    font-size: 4em;
+    color: #911393;
+    font-family: "Alegreya Sans SC", sans-serif;
+
+}
+
+.hero-content h2 {
+    position: relative;
+    font-size: 2.3em;
+    font-family: "Almarai", sans-serif;
+}
+.hero-content p {
+    position: relative;
+    font-size: 1.4em;
+    color: #c09fd3;
+    font-family: "Almarai", sans-serif;
+}
+
+}
+
+@media (min-width: 900px) {
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        width: auto; /* Auto width for larger screens */
+        font-size: large; /* Smaller font size on larger screens */
+    }
+
+    .buttons .d-grid.gap-2 {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+@media (min-width: 375px) {
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        width: auto; /* Auto width for larger screens */
+        font-size: 15px; /* Smaller font size on larger screens */
+    }
+
+    .buttons .d-grid.gap-2 {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+@media (min-width: 380px) {
+    .login-button,
+    .signup-button,
+    .order-books-button {
+        width: auto; /* Auto width for larger screens */
+        font-size: 20px; /* Smaller font size on larger screens */
+    }
+
+    .buttons .d-grid.gap-2 {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+

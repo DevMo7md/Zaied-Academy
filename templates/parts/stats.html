@@ -1,0 +1,61 @@
+<style>
+    canvas {
+    width: 100%;
+    height: 400px;
+}
+
+</style>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-11 card caard ehsaeat">
+        <h3 class="head">الإحصائيات</h3>
+        <div class="chart">
+            <canvas id="enrollmentChart"></canvas>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/get-subscription-stats/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+            .then(response => {
+                console.log('Response Status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response Data:', data);
+
+                if (data.labels && data.datasets) {
+                    const ctx = document.getElementById('enrollmentChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: data.datasets[0].label,
+                                data: data.datasets[0].data,
+                                backgroundColor: data.datasets[0].backgroundColor,
+                                borderColor: data.datasets[0].borderColor,
+                                borderWidth: data.datasets[0].borderWidth
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Invalid data format:', data);
+                }
+            })
+            .catch(error => console.error('Error fetching subscription stats:', error));
+        });
+</script>

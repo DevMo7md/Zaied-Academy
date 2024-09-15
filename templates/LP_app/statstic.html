@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block dash %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .navbar {
+    background-color: rgba(58, 58, 58, 0.422) !important; /* خلفية شفافة */
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Almarai", sans-serif;
+        }
+</style>
+{% include 'parts/sidepar.html' %}
+    <div class="main-content">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" dir="rtl">
+        {{message}}
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            style="font-family: 'Almarai', sans-serif; font-size: 1em;"
+        ></button>
+        </div>
+        {% endfor %}{% endif %}
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" dir="rtl">
+                <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Zaied Academy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'landing' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">تسجيل خروج</a>
+                    </li>
+                    {% else %}
+                    {% endif %}
+                </ul>
+                <a id="theme-toggle"><i class="fas fa-adjust" onclick="toggleTheme()" style="color: white;"></i></a>
+            </div>
+        </div>
+    </nav><br>
+        <h1 class="head">لوحة التحكم</h1>
+        <hr>
+        {% include 'parts/stats.html' %}
+        <div class="row m-1 mb-3">
+            <form method="POST" id="updateStatsForm">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="background-color: blueviolet; font-family: 'Almarai', sans-serif; font-size:large;" name="update">تحديث الإحصائيات</button>
+            </form>
+        </div>   
+    </div>
+{% endblock %}

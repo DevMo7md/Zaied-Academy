@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block dash %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .form-label {
+        display: inline-block;
+        width: 100px; /* يمكنك ضبط العرض حسب الحاجة */
+        text-align: right;
+        margin-right: 10px; /* مسافة بين التسمية وحقل الإدخال */
+    }
+    .form-control {
+        display: inline-block;
+        width: calc(100% - 120px); /* تعيين العرض بناءً على عرض التسمية */
+    }
+    .navbar {
+    background-color: rgba(58, 58, 58, 0.422) !important; /* خلفية شفافة */
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Almarai", sans-serif;
+        }
+</style>
+{% include 'parts/sidepar.html' %}
+    <div class="main-content">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" dir="rtl">
+                <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Zaied Academy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'landing' %}" >الصفحة الرئيسية</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">تسجيل خروج</a>
+                    </li>
+                    {% else %}
+                    {% endif %}    
+                </ul>
+                <a id="theme-toggle"><i class="fas fa-adjust" onclick="toggleTheme()" style="color: white;"></i></a>
+            </div>
+        </div>
+    </nav>
+    <br>
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" dir="rtl">
+        {{message}}
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            style="font-family: 'Almarai', sans-serif; font-size: 1em;"
+        ></button>
+        </div>
+        {% endfor %}{% endif %}
+        <h1 class="head">لوحة التحكم</h1>
+        <div class="row datails-cards">
+            <div class="col-md-5 card caard">
+                <div class="card-header">
+                    <h3 class="card-head"> عدد المشتركين : {{students_num}} &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child" id="student-icon"></i></h3>
+                </div>
+            </div>
+            <div class="col-md-5 card caard">
+                <div class="card-header">
+                    <h3 class="card-head">عدد الدورات : {{lesson_num}} &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-film"></i></h3>            
+                </div>
+                <div class="card-body">
+                    <h5>عدد المشاهدات : &nbsp;{{lesson_views}}&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-eye"></i></h5>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% include 'parts/stats.html' %}
+        <div class="row m-1 mb-3" id="lessonform-button">   
+            <a href="#lessonform" class="btn" data-toggle="collapse" style="background-color: blueviolet; font-family: 'Almarai', sans-serif; font-size:large;"> إضافه فيديو &nbsp;&nbsp;<i class="fa-solid fa-video"></i></a>
+        </div>
+        <div class="collapse" id="lessonform">  
+            <form method="POST" action="{% url 'dashboard' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title" class="form-label">عنوان الفيديو :</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="عنوان الفيديو" required>
+                </div>
+                <div class="form-group">
+                    <label for="lesson" class="form-label">الفيديو :</label>
+                    <input type="file" class="form-control" id="lesson" name="lesson" required>
+                </div>
+                <div class="form-group">
+                    <label for="category" class="form-label">التصنيف :</label>
+                    <select class="form-control" id="category" name="category" required>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="category" class="form-label">الصف :</label>
+                    <select class="form-control" id="grade" name="grade" required>
+                        {% for grade in grades %}
+                        <option value="{{ grade.id }}">{{ grade.grade }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="thumnale_image" class="form-label">صورة الغلاف :</label>
+                    <input type="file" class="form-control" id="thumnale_image" name="thumnale_image" required>
+                </div>
+                <div class="form-group">
+                    <label for="bdf" class="form-label">ملف pdf :</label>
+                    <input type="file" class="form-control" id="bdf" name="bdf">
+                </div>
+                <div class="form-group">
+                    <label for="discrebtion" class="form-label">وصف الفيديو :</label>
+                    <textarea class="form-control" id="discrebtion" name="discrebtion" placeholder="وصف الفيديو"></textarea>
+                </div>
+                <button type="submit" style="background-color: blueviolet; font-size: 1em; font-family: 'Almarai', sans-serif; color:aliceblue; border-radius: 5px;" name="share">نشر</button>
+            </form>
+        </div> 
+        {% include 'parts/teachers_videos.html' %}
+    </div>
+{% endblock %}

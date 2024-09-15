@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block landing %}
+    <link
+        rel="stylesheet"
+        href="{% static 'css/landing.css' %}"
+        />
+        {% include 'parts/nav.html' %}
+        <div class="sec1">
+            <section class="section1" >
+                <div class="hero-content">
+                    <h2>منصة</h2>
+                    <h1>Zaied Academy</h1>
+                    <h4>للغة العربية</h4>
+                    <p>منصة لغة عربية متكاملة بها كل ما يحتاجه الطالب ليتفوق</p>
+                </div>
+                <div class="buttons">
+                        <div class="d-grid gap-2 d-md-block">
+                            <a href="{% url 'login' %}" class="btn login-button" type="button">سجل الدخول</a>
+                            <a href="{% url 'register' %}"  class="btn signup-button" type="button">انشاء حساب</a>
+                        </div>
+                        <div class="d-grid gap-4 col-10 order-books">
+                            <button class="btn order-books-button" type="button">اطلب كتبك من هنا !</button>
+                        </div>
+                    </div>
+            </section>
+            <section class="section2">
+                <div class="box">
+                    <img src="{% static 'images/Students-bro.png' %}"  id="student-bro">
+                    <img src="{% static 'images/Learning-bro.png' %}"  id="learning-bro">
+                    <h2 class="head-card">ذاكر فوقتك و احنا معاك</h2>
+                    <a href="{% url 'register' %}" class="btn" id="join">انضم الينا الآن</a>
+                </div>
+            </section>
+            <section class="section3">
+                <div class="box2">
+                    <img src="{% static 'images/teacher.png' %}"  id="student-bro">
+                    <h2 class="head-card">لو مش متابعنا تابعنا دلوقتي</h2>
+                    <div class="links">
+                        <a href="https://www.facebook.com/mido.tamer.524596/" id="face-link"><img id="social" src="{% static 'images/facebook icon.png' %}" alt=""></a>
+                        <a href="https://www.instagram.com" id="insta-link"><img id="social" src="{% static 'images/insta icon.png' %}" alt=""></a>
+                        <a href="https://www.x.com" id="tweeter-link"><img id="social" src="{% static 'images/tweeter icon.png' %}" alt=""></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+{% endblock %}

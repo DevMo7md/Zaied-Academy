@@ -1,0 +1,34 @@
+{% load static %}
+<div class="row tea-lessons">
+    <h3 class="head">فيديوهاتك</h3>
+    <hr />
+    {% for lesson in lessonss %}
+    <div class="col-md-4 video">
+        {% if lesson.thumnale_image %}
+        <img src="{{lesson.thumnale_image.url}}" class="thumbnail-img" />
+        {% else %}
+        <img src="{% static 'images/lesson.jpg' %}" class="thumbnail-img" />
+        {% endif %}
+        <hr />
+        <h5>{{lesson.title}}</h5>
+        <p>{{ lesson.discrebtion }}</p>
+        <div>
+        <a href="{% url 'delete_lesson' lesson.id %}" class="btn btn bg-danger">
+            <i class="fas fa-trash"></i>
+        </a>
+        <a
+            href="{% url 'edit_lesson' lesson.id %}"
+            class="btn"
+            style="
+            background-color: rgb(202, 43, 226);
+            font-size: 1em;
+            font-family: 'Almarai', sans-serif;
+            color: aliceblue;
+            border-radius: 5px;
+            "
+            >تعديل</a
+        >
+        </div>
+    </div>
+    {% endfor %}
+</div>

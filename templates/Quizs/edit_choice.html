@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .form-label {
+        display: inline-block;
+        width: 100px; /* يمكنك ضبط العرض حسب الحاجة */
+        text-align: right;
+        margin-right: 10px; /* مسافة بين التسمية وحقل الإدخال */
+    }
+    .form-control {
+        display: inline-block;
+        width: calc(100% - 120px); /* تعيين العرض بناءً على عرض التسمية */
+    }
+</style>
+<h2 class="d-flex justify-content-center" style="color: #911393;">تعديل PDF</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="category" class="form-label">السؤال :</label>
+        <select class="form-control" id="question" name="question" required>
+            {% for ques in questions %}
+            <option value="{{ ques.id }}"  {% if ques.id == choice.question.id %}selected{% endif %} >{{ ques.text }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="title"> الاجابة : </label>
+        <input type="text" class="form-control" id="title" name="choice" value="{{ choice.text }}">
+    </div>
+    <div class="form-group">
+        <label for="is_correct">الإجابة الصحيحة؟</label>
+        <input type="checkbox" name="is_correct" id="is_correct" {% if choice.is_correct %}checked{% endif %}><br>
+    </div>
+    <button type="submit" class="btn" style="background-color: rgb(202, 43, 226); font-size: 1em; font-family: 'Almarai', sans-serif; color:aliceblue; border-radius: 5px;">حفظ التعديلات</button>
+</form>
+{% endblock %}
