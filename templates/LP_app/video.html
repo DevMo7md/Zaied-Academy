@@ -59,7 +59,7 @@
         <hr>
             {% if lesson.thumnale_image %}
             <div class="video-container">
-                <video class="embed-responsive embed-responsive-16by video-js" data-setup="{}" oncontextmenu="return false;" controlsList="nodownload" id="myVideo" width="700" height="400" poster="{{ lesson.thumnale_image.url }}" preload="auto" controls>
+                <video class="embed-responsive embed-responsive-16by video-js vjs-default-skin" data-setup="{}" oncontextmenu="return false;" controlsList="nodownload" id="myVideo" width="700" height="400" poster="{{ lesson.thumnale_image.url }}" preload="auto" controls>
                     <source src="{{ lesson.lesson.url }}" type="video/mp4">
                     <source src="{{ lesson.lesson.url }}" type="video/webm">
                     <source src="{{ lesson.lesson.url }}" type="video/oog">
@@ -68,7 +68,7 @@
             </div> 
             {% else %}
             <div class="video-container">
-                <video class="embed-responsive embed-responsive-16by video-js" oncontextmenu="return false;" controlsList="nodownload" id="myVideo" width="750" height="450" preload="auto" controls>
+                <video class="embed-responsive embed-responsive-16by video-js vjs-default-skin" data-setup="{}" oncontextmenu="return false;" controlsList="nodownload" id="myVideo" width="750" height="450" preload="auto" controls>
                     <source src="{{ lesson.lesson.url }}" type="video/mp4">
                     <source src="{{ lesson.lesson.url }}" type="video/webm">
                     <source src="{{ lesson.lesson.url }}" type="video/oog">
